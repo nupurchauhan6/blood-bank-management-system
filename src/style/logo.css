@@ -1,0 +1,23 @@
+a:link, a:visited {
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.jumbotron {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 0;
+    background-color: #fff;
+}
+
+img {
+    left: 8px;
+}
+
+.header {
+    color: #ff0000;
+    font-size: xx-large;
+}
