@@ -12,6 +12,7 @@ How to run the project:
 5. Once the server is up goto localhost/blood-bank-manangment-system/, the application should be open in front of you :)
 
 SQL Queries:
+
 Donor table
 
 CREATE TABLE donors
@@ -29,6 +30,19 @@ ldate varchar(255),
 bdate varchar(255),
 PRIMARY KEY(email)
 );
+
+Feedback table
+
+CREATE TABLE feedback
+(
+fullname varchar(255),
+email varchar(255),
+feedback varchar(255),
+suggestions varchar(255),
+comments varchar(255)
+);
+
+        
 
         
 
