@@ -37,7 +37,7 @@ CREATE TABLE feedback
 (
 fullname varchar(255),
 email varchar(255),
-feedback varchar(255),
+rating varchar(255),
 suggestions varchar(255),
 comments varchar(255)
 );
