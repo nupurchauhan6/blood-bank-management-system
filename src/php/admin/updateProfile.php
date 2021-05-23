@@ -50,7 +50,7 @@ session_start();
         </div>
 
         <div class="container">
-                <form method="post" action="updateProfile.php">
+                <form method="post">
                         <div class="row">
                                 <div class="col-lg-4">
                                         <div class="form-group">
@@ -63,46 +63,63 @@ session_start();
                 </form>
         </div>
         <?php 
+        $fullname = null;
+        $email = null;
+        $mobileno = null;
+        $gender = null; 
+        $state = null;
+        $city = null;
+        $address = null;
+        $bdate = null;
+        $ldate = null;
+        $weight = null;
+        $bloodgroup = null;
         if(isset($_POST['userEmail'])) {
-                $email=$_POST['userEmail'];
+                $userEmail = $_SESSION["userEmail"]=$_POST['userEmail'];
                 include('../database/config.php');
-                $sql="SELECT * FROM donors where email='$email'";
+                $sql="SELECT * FROM donors where email='$userEmail'";
                 
                 $result = $conn->query($sql);
                 
                 if (!empty($result) && $result->num_rows > 0) {
-                        $row = $result->fetch_assoc();     
+                        $row = $result->fetch_assoc();
+                        $fullname = $row["fullname"];
+                        $email = $row["email"];
+                        $mobileno = $row["mobileno"];
+                        $gender = $row["gender"]; 
+                        $state = $row["state"];
+                        $city = $row["city"];
+                        $address = $row["address"];
+                        $bdate = $row["bdate"];
+                        $ldate = $row["ldate"];
+                        $weight = $row["weight"];
+                        $bloodgroup = $row["bloodgroup"];
                 } else {
-                        echo "No record found";
+                        echo "<div class='container'>No record found</div>";
                 }
         }
         ?>
         <div class="container" style="margin-top: 10px;">
-                <form name="myform" method="post" action="update2.php" onsubmit="return(validate());">
+                <form name="myform" method="post" action="updateResult.php">
                         <h6>Donor Details</h6>
                         <div class="row">
                                 <div class="col-5">
                                         <div class="form-group">
                                                 Full Name:
                                                 <input type="text" name="fullname" class="form-control"
-                                                value = "<?php echo htmlentities($row->fullname);?>"
-                                                required>
+                                                        value="<?php echo $fullname;?>" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" onload="myFunction();">
                                                 Gender: </br>
-                                                <input type="radio" name="gender" value="Male" checked>Male
+                                                <input type="radio" name="gender" id="male" value="Male">Male
                                                 </br>
-                                                <input type="radio" name="gender" value="Female">Female
-                                        </div>
-
-                                        <div class="form-group">
-                                                Mobile No:
-                                                <input type="text" name="mobileno" class="form-control" required>
+                                                <input type="radio" name="gender" id="female" value="Female">Female
                                         </div>
 
                                         <div class="form-group">
                                                 Address:
-                                                <textarea name="address" class="form-control" required></textarea>
+                                                <textarea name="address" class="form-control"
+                                                        required><?php echo $address;?></textarea>
                                         </div>
                                         <div class="form-group">
                                                 Select State:
@@ -121,39 +138,40 @@ session_start();
                                                 </select>
                                         </div>
 
+                                        <div class="form-group">
+                                                <input type="submit" class="form-control btn btn-success"
+                                                        value="Update Profile">
+                                        </div>
+
                                 </div>
                                 <div class="col-5">
                                         <div class="form-group">
                                                 Date Of Birth:
-                                                <input type="Date" name="date" class="form-control" required>
+                                                <input type="Date" name="date" class="form-control"
+                                                        value="<?php echo $bdate;?>" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                                Mobile No:
+                                                <input type="text" name="mobileno" class="form-control"
+                                                        value="<?php echo $mobileno;?>" required>
                                         </div>
 
                                         <div class="form-group">
                                                 Weight:
-                                                <input type="text" name="weight" class="form-control" required>
+                                                <input type="text" name="weight" class="form-control"
+                                                        value="<?php echo $weight;?>" required>
                                         </div>
 
                                         <div class="form-group">
                                                 Date of last blood donation :
-                                                <input type="Date" name="ldate" class="form-control">
-                                        </div>
-
-                                        <div class="form-group">
-                                                How often do you donate blood?
-                                                <select class="form-control" required>
-                                                        <option placeholder="select">select<br>
-                                                        <option value="Yet to donate">Yet to
-                                                                donate<br>
-                                                        <option value="regular donar">regular
-                                                                donar<br>
-                                                        <option value="on need basis">on need
-                                                                basis<br>
-                                                </select>
+                                                <input type="Date" name="ldate" class="form-control"
+                                                        value="<?php echo $ldate;?>" required>
                                         </div>
 
                                         <div class="form-group">
                                                 Blood Group:
-                                                <select class="form-control" name="bloodgroup" required>
+                                                <select class="form-control" id="bloodgroup" name="bloodgroup" required>
 
                                                         <option value="">-Select Blood Group-</option>
 
@@ -171,6 +189,50 @@ session_start();
                         </div>
                 </form>
         </div>
+        <?php
+        echo "
+        <script type='text/javascript'>
+                function loadGender() {
+                        if(document.getElementById('male').value === '$gender') {
+                                document.getElementById('male').checked = true;
+                        } else if(document.getElementById('female').value === '$gender') {
+                                document.getElementById('female').checked = true;
+                        }
+                }
+                function loadBloodGroup() {
+                        for (let index = 0;  index < document.getElementById('bloodgroup').options.length; index++) {
+                                const elem = document.getElementById('bloodgroup').options;
+                                if(elem[index] && elem[index].text === '$bloodgroup') {
+                                        document.getElementById('bloodgroup').selectedIndex = index;
+                                }
+                        }
+                }
+                function loadState() {
+                        for (let index = 0;  index < document.getElementById('state').options.length; index++) {
+                                const elem = document.getElementById('state').options;
+                                if(elem[index].text === '$state') {
+                                        document.getElementById('state').selectedIndex = index;
+                                }
+                        }
+                        populate('state','city');
+                }
+                function loadCity() {
+                        for (let index = 0;  index < document.getElementById('city').options.length; index++) {
+                                const elem = document.getElementById('city').options;
+                                if(elem[index].text === '$city') {
+                                        document.getElementById('city').selectedIndex = index;
+                                }
+                        }
+                }
+                function onLoad() {
+                        loadGender();
+                        loadBloodGroup();
+                        loadState();
+                        loadCity();
+                }
+                onLoad();
+        </script>"
+        ?>
 </body>
 
 </html>

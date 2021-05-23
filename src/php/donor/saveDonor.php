@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,49 +8,19 @@
         integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
+    </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
-
-    <style type="text/css">
-        .jumbotron {
-            padding-bottom: 10px;
-            padding-top: 10px;
-            margin: 0;
-            background-color: #fff;
-        }
-
-        img {
-            left: 8px;
-        }
-
-        #header {
-            text-decoration: none;
-            size: 100px;
-            margin-top: auto;
-            background-color: #fff;
-        }
-    </style>
-
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="jumbotron">
-            <div class="row">
-                <div class="col-lg-7">
-                    <font size="25px"> <a href="../../../index.html" style="color: #ff0000" id="header"><img src="../../../resources/img/logo.jpg"
-                                width="200" height="100">Blood Bank</a> </font>
-                </div>
-            </div>
-        </div>
-
-<?php
+    <?php
+include('../common/header.html');
 include('../database/config.php');
 $fullname=$_POST['fullname'];
 $email=$_POST['email'];
@@ -67,7 +38,7 @@ $sql = "INSERT INTO donors(fullname,email,mobileno,address,weight,gender,bdate,l
 VALUES ('$fullname','$email','$mobileno','$address','$weight','$gender','$bdate','$ldate','$bloodgroup','$state','$city')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "<div><h5>Thank You for registration!</h5></div>";
+    echo "<div class='container'><h5>Thank You for registration!</h5></div>";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 } 
