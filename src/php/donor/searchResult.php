@@ -54,11 +54,12 @@ if (!empty($result) && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 
     echo '<div class="container">';
-    echo '<form action="sendInfo.php" id="form">';
+    echo '<form id="form">';
     echo "Name:"." ". $row["fullname"]."<br/>";
     echo "Address:"." ".$row["address"]."<br/>";
     echo "Blood Group:"." ". $row["bloodgroup"]."<br/>";
     echo "Moblie no:"." " .$row["mobileno"]."<br/>";
+    // left to implement the functionality
     echo '<button type="submit" class="btn btn-success">Send Request</button>';
     echo '</form>';
     echo '</div>';
